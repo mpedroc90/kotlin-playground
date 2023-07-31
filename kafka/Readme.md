@@ -16,8 +16,7 @@ docker exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --list -bootstrap-ser
 #delete topic 
 docker exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --delete --topic topic_name --bootstrap-server localhost:9092
 
-
-
-docker exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+# Consumer from a topic
+docker exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test_name --from-beginning
 ```
 

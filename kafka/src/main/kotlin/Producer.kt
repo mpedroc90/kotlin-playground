@@ -16,7 +16,7 @@ fun main() {
 
     repeat(10) {
         producer.send(
-            ProducerRecord("test", "hola$it" )
+            ProducerRecord("test_name", "hello $it" )
         ) { m: RecordMetadata, e: Exception? ->
             when (e) {
                 // no exception, good to go!
