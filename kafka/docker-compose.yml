@@ -35,8 +35,9 @@ services:
 
     volumes:
       - 'kafka1_data:/bitnami/kafka'
-  schema-registry:
+  kafka-schema-registry:
     image: docker.io/bitnami/schema-registry:7.4
+    hostname: kafka-schema-registry
     ports:
       - '8081:8081'
     depends_on:
@@ -44,10 +45,45 @@ services:
       - kafka-1
     environment:
       - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_ADVERTISED_HOSTNAME=http://kafka-schema-registry:8081
       - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka-0:9092,PLAINTEXT://kafka-1:9092
+      - SCHEMA_REGISTRY_HOST_NAME=kafka-schema-registry
+      - SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN=*
+      - SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS=GET,POST,PUT,OPTIONS
+
+
+
+
+  console:
+    container_name: redpanda-console
+    restart: always
+    image: docker.redpanda.com/redpandadata/console:v2.3.0
+    entrypoint: /bin/sh
+    command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["kafka-0:9092", "kafka-1:9092"]
+          schemaRegistry:
+            enabled: true
+            urls: [ "http://kafka-schema-registry:8081" ]
+    ports:
+      - 8080:8080
+    depends_on:
+      - kafka-0
+      - kafka-1
+      - kafka-schema-registry
+
 
 volumes:
   kafka0_data:
     driver: local
   kafka1_data:
     driver: local
+
+
+
+#    schemaRegistry:
+#      enabled: true
+#      urls: [ "http://localhost:8081" ]
