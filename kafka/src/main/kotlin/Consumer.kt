@@ -12,7 +12,7 @@ fun main() {
 
     val consumer = KafkaConsumer<String, String>(loadConsumerConfig())
 
-    consumer.subscribe(listOf("test_name"))
+    consumer.subscribe(listOf("test"))
 
     consumer.use { consumer ->
         while (true) {
