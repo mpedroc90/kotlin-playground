@@ -1,10 +1,12 @@
+package simple
+
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import java.io.FileReader
 import java.util.Properties
 import java.time.Duration
 
 fun loadConsumerConfig() = Properties().apply {
-    load(FileReader("src/main/resources/consumer.properties"))
+    load(FileReader("src/main/resources/simple/consumer.properties"))
 }
 
 

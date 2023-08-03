@@ -1,3 +1,5 @@
+package simple
+
 import java.io.FileReader
 import java.util.Properties
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -6,7 +8,7 @@ import org.apache.kafka.clients.producer.RecordMetadata
 
 
 fun loadProducerConfig() = Properties().apply {
-        load(FileReader("src/main/resources/producer.properties"))
+        load(FileReader("src/main/resources/simple/producer.properties"))
 }
 
 
