@@ -16,8 +16,6 @@ fun loadAvroProducerConfig() = Properties().apply {
     load(FileReader("src/main/resources/avro/producer.properties"))
 }
 
-fun loadSchema(): Schema = Schema.Parser().parse(File("src/main/kotlin/avro/avro.schema.avsc"))
-
 
 fun main() {
 
