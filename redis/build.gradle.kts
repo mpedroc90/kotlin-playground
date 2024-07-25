@@ -11,6 +11,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("redis.clients:jedis:5.1.2")
+
 }
 
 tasks.test {
