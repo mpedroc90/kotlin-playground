@@ -1,11 +1,18 @@
-package org.example.basic
+package org.example
 
 import redis.clients.jedis.JedisPool
+
+
+import redis.clients.jedis.JedisCluster
 import java.util.HashMap
 
 
 fun main() {
-    val pool =  JedisPool("localhost", 6379)
+
+
+    val pool =  JedisPool("localhost", 9000)
+
+
 
     pool.resource.use {  redis ->
         redis.set("foo", "bar")
